@@ -7,7 +7,7 @@ object Dependencies {
   }
 
   val commonDependencies = Seq(
-
+    "org.scalatest" %% "scalatest" % "3.0.5" % "test"
   )
 
   val core = commonDependencies ++ Seq(

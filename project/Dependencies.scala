@@ -4,6 +4,7 @@ object Dependencies {
   object Versions {
     val shapeless = "2.3.3"
     val cats = "1.0.1"
+    val circe = "0.9.1"
   }
 
   val commonDependencies = Seq(
@@ -18,7 +19,11 @@ object Dependencies {
     "org.typelevel" %% "cats-effect" % "0.10"
   )
 
-  val circe = commonDependencies
+  val circe = commonDependencies ++ Seq(
+    "io.circe" %% "circe-core",
+    "io.circe" %% "circe-generic",
+    "io.circe" %% "circe-parser"
+  ).map(_ % Versions.circe)
 
   val http4s = commonDependencies
 }

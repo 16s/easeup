@@ -1,4 +1,4 @@
-package easeup.web
+package easeup.encoding
 
 import org.scalatest.FlatSpec
 
@@ -13,24 +13,24 @@ class RequestFieldEncoderSpec extends FlatSpec {
   }
 
   it should "correctly encode a TestClass as object" in {
-    assert(RequestFieldEncoder[TestClass].asJsonValue(TestClass(5L)) === JsonObject(List(("id", JsonNumber(5f)))))
+    assert(RequestFieldEncoder[TestClass].asJsonValue(TestClass(5L)) === JsonObject(List(("id", JsonLong(5L)))))
   }
 
   it should "correctly encode a list of TestClasses" in {
     val data = List(TestClass(5), TestClass(6))
-    val response = JsonArray(Seq(JsonObject(List(("id", JsonNumber(5f)))), JsonObject(List(("id", JsonNumber(6f))))))
+    val response = JsonArray(Seq(JsonObject(List(("id", JsonLong(5L)))), JsonObject(List(("id", JsonLong(6L))))))
     assert(RequestFieldEncoder[List[TestClass]].asJsonValue(data) === response)
   }
 
   it should "correctly encode a vector of TestClasses" in {
     val data = Vector(TestClass(5), TestClass(6))
-    val response = JsonArray(Seq(JsonObject(List(("id", JsonNumber(5f)))), JsonObject(List(("id", JsonNumber(6f))))))
+    val response = JsonArray(Seq(JsonObject(List(("id", JsonLong(5L)))), JsonObject(List(("id", JsonLong(6L))))))
     assert(RequestFieldEncoder[Vector[TestClass]].asJsonValue(data) === response)
   }
 
   it should "correctly encode NestedClass" in {
     val data = NestedClass(TestClass(5L))
-    val response = JsonObject(List(("item", JsonObject(List(("id", JsonNumber(5f)))))))
+    val response = JsonObject(List(("item", JsonObject(List(("id", JsonLong(5L)))))))
     assert(RequestFieldEncoder[NestedClass].asJsonValue(data) === response)
   }
 }

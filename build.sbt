@@ -5,11 +5,13 @@ lazy val commonSettings = Seq(
 	scalaVersion := "2.12.4",
 	version := "0.0.1-SNAPSHOT",
 	wartremoverErrors ++= Warts.all,
-  scalariformPreferences := scalariformPreferences.value
+  scalariformPreferences := scalariformPreferences.value,
+  resolvers ++= Seq(
+		Resolver.sonatypeRepo("releases"),
+		Resolver.sonatypeRepo("snapshots")
+	),
+  scalacOptions += "-Ypartial-unification"
 )
-
-lazy val easeUp = (project in file("."))
-	.aggregate(easeUpCore, easeUpCirce, easeUpHttp4s)
 
 lazy val easeUpCore = (project in file("core"))
 	.settings(

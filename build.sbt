@@ -16,6 +16,7 @@ lazy val commonSettings = Seq(
 lazy val easeUpCore = (project in file("core"))
 	.settings(
 		commonSettings,
+		name := "easeup-core",
     libraryDependencies ++= Dependencies.core
 	)
 
@@ -23,6 +24,7 @@ lazy val easeUpCirce = (project in file("circe"))
 	.dependsOn(easeUpCore)
 	.settings(
 		commonSettings,
+		name := "easeup-circe",
     libraryDependencies ++= Dependencies.circe
 	)
 
@@ -30,6 +32,12 @@ lazy val easeUpHttp4s = (project in file("http4s"))
 	.dependsOn(easeUpCore)
 	.settings(
 		commonSettings,
+		name := "easeup-http4s",
     libraryDependencies ++= Dependencies.http4s
 	)
 
+lazy val easeUp = (project in file("."))
+  .settings(
+		commonSettings,
+		name := "easeup"
+	).aggregate(easeUpCore, easeUpCirce, easeUpHttp4s)

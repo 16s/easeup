@@ -1,8 +1,8 @@
 package easeup.encoding
 
-import org.scalatest.FlatSpec
+import org.scalatest._
 
-class RequestFieldEncoderSpec extends FlatSpec {
+class RequestFieldEncoderSpec extends FlatSpec with EitherValues {
 
   final case class TestClass(id: Long)
 
@@ -33,4 +33,26 @@ class RequestFieldEncoderSpec extends FlatSpec {
     val response = JsonObject(List(("item", JsonObject(List(("id", JsonLong(5L)))))))
     assert(RequestFieldEncoder[NestedClass].asJsonValue(data) === response)
   }
+
+  "ResponseFieldDecoder" should "correctly decode a string" in {
+    assert(ResponseFieldDecoder[String].parseJson(JsonString("abc")).runA(()).right.value === "abc")
+  }
+
+  it should "correctly decode a TestClass object" in {
+    val json = JsonObject(List(("id", JsonLong(5L))))
+    assert(ResponseFieldDecoder[TestClass].parseJson(json).runA(()).right.value === TestClass(5L))
+  }
+
+  it should "correctly decode a list of TestClasses" in {
+    val data = List(TestClass(5), TestClass(6))
+    val response = JsonArray(Seq(JsonObject(List(("id", JsonLong(5L)))), JsonObject(List(("id", JsonLong(6L))))))
+    assert(ResponseFieldDecoder[List[TestClass]].parseJson(response).runA(()).right.value === data)
+  }
+
+  it should "correctly decode NestedClass" in {
+    val data = NestedClass(TestClass(5L))
+    val response = JsonObject(List(("item", JsonObject(List(("id", JsonLong(5L)))))))
+    assert(ResponseFieldDecoder[NestedClass].parseJson(response).runA(()).right.value === data)
+  }
+
 }

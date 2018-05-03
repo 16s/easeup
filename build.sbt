@@ -2,7 +2,7 @@ import scalariform.formatter.preferences._
 
 lazy val commonSettings = Seq(
 	organization := "net.16shells",
-	scalaVersion := "2.12.4",
+	scalaVersion := "2.12.6",
 	version := "0.0.1-SNAPSHOT",
 	wartremoverErrors ++= Warts.all,
   scalariformPreferences := scalariformPreferences.value,
@@ -10,7 +10,7 @@ lazy val commonSettings = Seq(
 		Resolver.sonatypeRepo("releases"),
 		Resolver.sonatypeRepo("snapshots")
 	),
-  scalacOptions += "-Ypartial-unification"
+  scalacOptions ++= Seq("-Ypartial-unification", "-feature", "-deprecation", "-unchecked")
 )
 
 lazy val easeUpCore = (project in file("core"))

@@ -1,7 +1,7 @@
 import scalariform.formatter.preferences._
 
 lazy val commonSettings = Seq(
-	organization := "net.16shells",
+	organization := "me.16s",
 	scalaVersion := "2.12.6",
 	version := "0.0.1-SNAPSHOT",
 	wartremoverErrors ++= Warts.all,

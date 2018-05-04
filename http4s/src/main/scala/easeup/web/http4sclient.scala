@@ -10,5 +10,6 @@ sealed trait ApiError
 final case class Http4sState()
 
 class Http4sClient extends Client[Http4sState] {
-  override def execute[A](req: PreparedRequest[A]): ResultT[IO, Http4sState, Error, A] = ???
+  private def run(request: PreparedRequest)(st: Http4sState): IO[Either[Error, Response]] = ???
+  override def execute(req: PreparedRequest): ResultT[IO, Http4sState, Error, Response] = ResultT.inspectF(run(req))
 }

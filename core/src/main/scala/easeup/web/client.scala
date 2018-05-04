@@ -26,11 +26,13 @@ object Method {
   final case class Post(body: String) extends Method
 }
 
-final case class PreparedRequest[A](
+final case class PreparedRequest(
   headers: Seq[(String, String)],
   method: Method,
   url: String)
 
+final case class Response(req: PreparedRequest, status: Int, headers: Seq[(String, String)], body: String)
+
 trait Client[S] {
-  def execute[A](req: PreparedRequest[A]): ResultT[IO, S, Error, A]
+  def execute(req: PreparedRequest): ResultT[IO, S, Error, Response]
 }

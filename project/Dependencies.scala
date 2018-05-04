@@ -18,7 +18,7 @@ object Dependencies {
     "org.typelevel" %% "cats-kernel" % Versions.cats,
     "org.typelevel" %% "cats-macros" % Versions.cats,
     "org.typelevel" %% "cats-effect" % "1.0.0-RC",
-    "me.16s" %% "result" % "0.0.3"
+    "me.16s" %% "result" % "0.1.2"
   )
 
   val circe = commonDependencies ++ Seq(

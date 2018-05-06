@@ -14,25 +14,33 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup
 
 import cats.effect.IO
 import result._
 
-sealed trait Method
+package object web {
+  type HttpClientExecutor[S] = Request => ResultT[IO, S, Error, Response]
 
-object Method {
-  final case class Get(params: Seq[(String, String)]) extends Method
-  final case class Post(body: String) extends Method
-}
+  final case class Request(
+    headers: Seq[(String, String)],
+    method: Method,
+    params: Seq[(String, String)],
+    body: Option[String],
+    url: String)
 
-final case class PreparedRequest(
-  headers: Seq[(String, String)],
-  method: Method,
-  url: String)
+  sealed trait Method
 
-final case class Response(req: PreparedRequest, status: Int, headers: Seq[(String, String)], body: String)
+  object Method {
+    final case object Get extends Method
+    final case object Post extends Method
+  }
 
-trait Client[S] {
-  def execute(req: PreparedRequest): ResultT[IO, S, Error, Response]
+  final case class Response(req: Request, status: Int, headers: Seq[(String, String)], body: String)
+
+  sealed trait Error
+
+  object Error {
+    final case class InvalidUri(uri: String, error: String) extends Error
+  }
 }

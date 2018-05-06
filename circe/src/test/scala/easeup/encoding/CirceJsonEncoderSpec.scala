@@ -25,7 +25,7 @@ final case class NestedClass(item: TestClass)
 class CirceJsonEncoderSpec extends FlatSpec {
 
   "CirceJsonEncoder" should "encode TestClass" in {
-    val encoded = CirceJsonEncoder.encode(RequestFieldEncoder[TestClass].asJsonValue(TestClass(5)))
+    val encoded = circe.encode(RequestFieldEncoder[TestClass].asJsonValue(TestClass(5)))
     assert(encoded === "{\"id\":5}")
   }
 }

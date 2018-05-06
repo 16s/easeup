@@ -19,7 +19,7 @@ package easeup.encoding
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 
-object CirceJsonEncoder extends JsonEncoder {
+package object circe {
   implicit val jvEncoder: Encoder[JsonValue] = new Encoder[JsonValue] {
     private def encodeArrayElements(xs: Traversable[JsonValue]): Iterable[Json] =
       xs.map(apply).toIterable
@@ -38,6 +38,5 @@ object CirceJsonEncoder extends JsonEncoder {
     }
   }
 
-  override def encode(x: JsonValue): String = x.asJson.noSpaces
-
+  val encode: JsonEncoder = _.asJson.noSpaces
 }

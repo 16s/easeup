@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.api
 
-package object http4s {
+import easeup.encoding.JsonValue
+
+sealed trait ApiError
+
+object ApiError {
+  final case class Request(uri: String, error: String) extends ApiError
+  final case class JsonParse(uri: String, body: String) extends ApiError
+  final case class DecodeError(uri: String, body: JsonValue) extends ApiError
 }

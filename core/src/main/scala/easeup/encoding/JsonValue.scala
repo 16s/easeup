@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-package easeup
+package easeup.encoding
 
-package object encoding {
-  type JsonEncoder = JsonValue => String
+sealed trait JsonValue
 
-  sealed trait JsonValue
-
-  case object JsonNull extends JsonValue
-  final case class JsonBoolean(x: Boolean) extends JsonValue
-  final case class JsonString(x: String) extends JsonValue
-  final case class JsonFloat(x: Float) extends JsonValue
-  final case class JsonLong(x: Long) extends JsonValue
-  final case class JsonArray(xs: Traversable[JsonValue]) extends JsonValue
-  final case class JsonObject(xs: List[(String, JsonValue)]) extends JsonValue
-}
+case object JsonNull extends JsonValue
+final case class JsonBoolean(x: Boolean) extends JsonValue
+final case class JsonString(x: String) extends JsonValue
+final case class JsonFloat(x: Float) extends JsonValue
+final case class JsonLong(x: Long) extends JsonValue
+final case class JsonArray(xs: Traversable[JsonValue]) extends JsonValue
+final case class JsonObject(xs: List[(String, JsonValue)]) extends JsonValue

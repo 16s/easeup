@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.encoding
 
-package object http4s {
+import ingot._
+import cats.effect._
+
+trait JsonParser[S] {
+  def run(x: String): Ingot[IO, S, JsonParseError, JsonValue]
 }

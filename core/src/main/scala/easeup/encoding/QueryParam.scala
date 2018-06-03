@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.encoding
 
-package object http4s {
-}
+sealed trait ParamValue
+final case class SingleParamValue(v: String) extends ParamValue
+final case class MultiParamValue(v: Traversable[SingleParamValue]) extends ParamValue
+
+sealed trait QueryParam
+final case class QueryStringItem(k: String, v: ParamValue) extends QueryParam
+final case class QueryString(items: List[QueryStringItem]) extends QueryParam

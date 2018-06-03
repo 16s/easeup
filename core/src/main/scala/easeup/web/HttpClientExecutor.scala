@@ -16,5 +16,9 @@
 
 package easeup.web
 
-package object http4s {
+import cats.effect.IO
+import ingot._
+
+trait HttpClientExecutor[S] {
+  def run(r: Request): Ingot[IO, S, ClientError, Response[String]]
 }

@@ -16,5 +16,26 @@
 
 package easeup.web
 
-package object http4s {
+import easeup.encoding.QueryString
+
+final case class Request(
+  headers: Seq[(String, String)],
+  method: Method,
+  params: QueryString,
+  body: Option[String],
+  url: String)
+
+sealed trait Method
+
+object Method {
+  final case object Get extends Method
+  final case object Post extends Method
+}
+
+final case class Response[S](req: Request, status: Int, headers: Seq[(String, String)], body: S)
+
+sealed trait ClientError
+
+object ClientError {
+  final case class InvalidUri(uri: String, error: String) extends ClientError
 }

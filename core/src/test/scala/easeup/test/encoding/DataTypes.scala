@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.test.encoding
 
-package object http4s {
+object DataTypes {
+  final case class TestClass(id: Long)
+
+  final case class NestedClass(item: TestClass)
+
 }

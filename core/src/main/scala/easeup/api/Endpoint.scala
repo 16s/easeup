@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.api
 
-package object http4s {
+import easeup.web.Method
+
+trait Endpoint[Q, R] {
+  val uri: String
+  val method: Method
 }

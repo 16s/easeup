@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.web.http4s
 
-package object http4s {
-}
+import cats.effect.IO
+import org.http4s.client.Client
+
+final case class Http4sState(client: Client[IO])

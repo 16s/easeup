@@ -16,6 +16,8 @@
 
 package easeup.encoding
 
+import cats.effect.IO
+import ingot._
 import io.circe.{ Encoder, Json }
 import io.circe.syntax._
 
@@ -38,5 +40,5 @@ package object circe {
     }
   }
 
-  val encode: JsonEncoder = _.asJson.noSpaces
+  val encode: JsonEncoder[Unit] = x => Ingot.pure[IO, Unit, Unit, String](x.asJson.noSpaces)
 }

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package easeup.web
+package easeup.encoding
 
-package object http4s {
+sealed trait JsonParseError
+object JsonParseError {
+  final case class InvalidData() extends JsonParseError
 }

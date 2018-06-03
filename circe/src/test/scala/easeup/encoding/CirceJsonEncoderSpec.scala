@@ -16,7 +16,9 @@
 
 package easeup.encoding
 
-import org.scalatest.FlatSpec
+import org.scalatest._
+import Matchers._
+import cats.syntax.either._
 
 final case class TestClass(id: Long)
 
@@ -25,8 +27,8 @@ final case class NestedClass(item: TestClass)
 class CirceJsonEncoderSpec extends FlatSpec {
 
   "CirceJsonEncoder" should "encode TestClass" in {
-    val encoded = circe.encode(RequestFieldEncoder[TestClass].asJsonValue(TestClass(5)))
-    assert(encoded === "{\"id\":5}")
+    val encoded: Either[Unit, String] = circe.encode.run(JsonValueEncoder[TestClass].encode(TestClass(5))).runA().unsafeRunSync()
+    encoded shouldBe Either.right[Unit, String]("{\"id\":5}")
   }
 }
 

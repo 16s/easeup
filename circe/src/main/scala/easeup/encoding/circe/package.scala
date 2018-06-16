@@ -40,5 +40,5 @@ package object circe {
     }
   }
 
-  val encode: JsonEncoder[Unit] = x => Ingot.pure[IO, Unit, Unit, String](x.asJson.noSpaces)
+  val encode: JsonEncoder[Unit] = x => Ingot.pure[IO, Unit, Unit](x.asJson.noSpaces)
 }
